@@ -29,6 +29,15 @@ const getTodos = () => {
   savedTodos.forEach(savedTodo => paintTodo(savedTodo.text));
 };
 
+const deleteTodo = e => {
+  const btn = e.currentTarget;
+  const li = btn.parentNode.parentNode;
+  todoList.removeChild(li);
+  todos = todos.filter(todo => todo.todoId !== +li.id);
+  todoCount.innerText = todos.length;
+  saveTodo();
+};
+
 const paintTodo = inputValue => {
   const li = document.createElement("li");
   li.innerHTML = `
@@ -42,6 +51,7 @@ const paintTodo = inputValue => {
   const newId = todos.length + 1;
   li.id = newId;
   todoList.appendChild(li);
+  li.children[0].children[2].addEventListener("click", deleteTodo);
   li.children[0].children[0].addEventListener("click", clickToggleBtn);
   const todoObj = {
     todoId: newId,
