@@ -39,10 +39,10 @@ const paintTodo = inputValue => {
     </div>
     <input class="edit" value="${inputValue}" />
   `;
-
   const newId = todos.length + 1;
   li.id = newId;
   todoList.appendChild(li);
+  li.children[0].children[0].addEventListener("click", clickToggleBtn);
   const todoObj = {
     todoId: newId,
     text: inputValue,
@@ -50,6 +50,12 @@ const paintTodo = inputValue => {
   todos.push(todoObj);
   todoCount.innerText = todos.length;
   saveTodo();
+};
+
+const clickToggleBtn = e => {
+  let checkedBtn = e.currentTarget;
+  checkedBtn.parentNode.parentNode.classList.add("completed");
+  checkedBtn.checked = true;
 };
 
 function init() {
